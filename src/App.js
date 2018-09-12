@@ -34,12 +34,23 @@ class App extends Component {
     this.setState({ newToDoDescription: e.target.value });
   }
 
+  deleteToDo(index) {
+    let newList = this.state.todos.slice();
+    newList.splice(index, 1);
+    this.setState({todos: [...newList]});
+  }
+
   render() {
     return (
       <div className="App">
         <ul>
           {this.state.todos.map((todo, index) => 
-            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+            <ToDo 
+            key={ index } 
+            description={ todo.description } 
+            isCompleted={ todo.isCompleted } 
+            toggleComplete={ () => this.toggleComplete(index) }
+            delete={() => this.deleteToDo(index)} />
           )}
         </ul>
         <form onSubmit={ e => this.handleSubmit(e) }>
